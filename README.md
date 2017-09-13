@@ -1,2 +1,2 @@
 # SAteFARI
-Projet de ENSICAEN corp en collaboration avec VisioSaye
+Projet de ENSICAEN corp en collaboration avec VisioSate
