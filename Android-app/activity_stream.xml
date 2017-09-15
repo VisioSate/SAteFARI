@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="#FFFFD0"
+    android:layout_height="fill_parent"
+    >
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/My_btn"
+        android:layout_alignParentEnd="true" >
+    </WebView>
+    <!--<Button
+        android:id="@+id/btn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="My Button!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_takepic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="410dp"
+        android:text="Prendre une photo" />-->
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible"/>
+</RelativeLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>-->
+
+    <!--
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></WebView>-->
+
+    <!--
+    <Button
+        android:id="@+id/folder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved pictures"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="32dp" />
+    <ToggleButton
+        android:id="@+id/RecordToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        android:textOn="RECORDING"
+        android:textOff="RECORD"
+        android:layout_marginEnd="66dp"
+        android:layout_alignBaseline="@+id/btn_takepic"
+        android:layout_alignBottom="@+id/btn_takepic"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>-->

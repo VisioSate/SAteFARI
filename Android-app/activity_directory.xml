@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.visiosate.test0909.Directory">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:layout_width="576dp"
+        android:layout_height="319dp"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="20dp"
+        android:horizontalSpacing="2dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <ImageView
+        android:id="@+id/grid_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.20"
+        tools:layout_editor_absoluteY="20dp"
+        tools:layout_editor_absoluteX="32dp">
+    </ImageView>
+<!--    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp" />
+    </ScrollView>-->
+
+    <!--<ImageView
+         android:id="@+id/image"
+         android:layout_width="137dp"
+         android:layout_height="79dp"
+         android:layout_alignParentTop="true"
+         android:layout_alignParentStart="true"
+         tools:layout_editor_absoluteY="16dp"
+         tools:layout_editor_absoluteX="16dp" />-->
+
+
+</android.support.constraint.ConstraintLayout>
