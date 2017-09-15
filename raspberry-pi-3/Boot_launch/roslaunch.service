@@ -1,0 +1,10 @@
+[Unit]
+Description=Lancer roslaunch
+
+[Service]
+ExecStart=/usr/local/bin/roslaunch.sh
+ExecStartPost=/usr/local/bin/convert.sh
+TimeoutSec=infinity
+
+[Install]
+WantedBy=multi-user.target
