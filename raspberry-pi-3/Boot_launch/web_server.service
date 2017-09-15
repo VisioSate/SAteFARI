@@ -1,0 +1,8 @@
+[Unit]
+Description=Lancer serveur web
+
+[Service]
+ExecStart=/usr/local/bin/web_server.sh
+
+[Install]
+WantedBy=multi-user.target

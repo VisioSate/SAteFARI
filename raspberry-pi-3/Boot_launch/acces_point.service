@@ -1,0 +1,9 @@
+[Unit]
+description=lance le hotspot
+
+[Service]
+ExecStart=/usr/local/bin/acces_point.sh
+
+[Install]
+WantedBy=multi-user.target
+
