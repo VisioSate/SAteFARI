@@ -47,7 +47,7 @@ int main(void)
 
 			fd.fd = s;        
 			fd.events = POLLIN;
-			res = poll(&fd,1,3000);
+			res = poll(&fd,1,1000);
 			if (res == 0) 
 			{
 				printf("\nTIMEOUT\n");
