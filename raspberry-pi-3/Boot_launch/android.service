@@ -1,0 +1,9 @@
+[Unit]
+Description=Lancement de la communication Wi-Fi
+
+[Service]
+ExecStart=/usr/local/bin/android.sh
+TimeoutSec=infinity
+
+[Install]
+WantedBy=multi-user.target
