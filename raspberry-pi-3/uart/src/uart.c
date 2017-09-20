@@ -2,16 +2,40 @@
 
 int main(void) 
 {
-
+	/* SETUP USART 0 
+	At bootup, pins 8 and 10 are already set to UART0_TXD, UART0_RXD (ie the alt0 function) respectively */
 	int uart0_filestream = -1;
 	
-	uart0_filestream = open("/dev/ttyAMA0", O_RDWR);		//Open in non blocking read/write mode
+	/*OPEN THE UART
+	The flags (defined in fcntl.h):
+		Access modes (use 1 of these):
+			O_RDONLY - Open for reading only.
+			O_RDWR - Open for reading and writing.
+			O_WRONLY - Open for writing only.
+	
+		O_NDELAY / O_NONBLOCK (same function) - Enables nonblocking mode. When set read requests on the file can return immediately with a failure status
+												if there is no input immediately available (instead of blocking). Likewise, write requests can also return
+												immediately with a failure status if the output can't be written immediately.
+	
+		O_NOCTTY - When set and path identifies a terminal device, open() shall not cause the terminal device to become the controlling terminal for the process.*/
+	uart0_filestream = open("/dev/ttyAMA0", O_RDWR);
+	
 	if (uart0_filestream == -1)
 	{
-		//ERROR - CAN'T OPEN SERIAL PORT
+		/* ERROR - CAN'T OPEN SERIAL PORT */
 		printf("Error - Unable to open UART.  Ensure it is not in use by another application\n");
 	}
 
+	/* CONFIGURE THE UART 
+		//The flags (defined in /usr/include/termios.h - see http://pubs.opengroup.org/onlinepubs/007908799/xsh/termios.h.html):
+		Baud rate:- B1200, B2400, B4800, B9600, B19200, B38400, B57600, B115200, B230400, B460800, B500000, B576000, B921600, B1000000, B1152000, B1500000, B2000000, B2500000, B3000000, B3500000, B4000000
+		CSIZE:- CS5, CS6, CS7, CS8
+		CLOCAL - Ignore modem status lines
+		CREAD - Enable receiver
+		IGNPAR = Ignore characters with parity errors
+		ICRNL - Map CR to NL on input (Use for ASCII comms where you want to auto correct end of line characters - don't use for bianry comms!)
+		PARENB - Parity enable
+		PARODD - Odd parity (else even) */
 	struct termios options;
 	tcgetattr(uart0_filestream, &options);
 	options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;		//<Set baud rate
@@ -21,17 +45,18 @@ int main(void)
 	tcflush(uart0_filestream, TCIFLUSH);
 	tcsetattr(uart0_filestream, TCSANOW, &options);
 
-    /* Affichage de l'acceuil */
+   	/* Affichage du message d'accueil */
 	unsigned char* message_acceuil =
 "\r\n*******  *****   ****  *******  ****\r\n*  ****  *    *  *  *  *  ****  ****\r\n*  *     *  *  * *  *  *  *     ****\r\n*  ***   *  **  **  *  *  ****  *  *\r\n*  ***   *  * *  *  *  ****  *  *  *\r\n*  *     *  *  *    *     *  *  *  *\r\n*  ****	 *  *   *   *  ****  *  *  *\r\n*******  ****    ****  *******  ****\r\nSATEFARI - Supervison Processor Interface\r\nEnter help to know the supported commands";
-	unsigned char* help ="speed     : update speed value\r\nsteering  : update steering value\r\nmeas      : print current - voltage power in real time.\r\nPress enter to quit";
 	
+	
+	unsigned char* help ="speed     : update speed value\r\nsteering  : update steering value\r\nmeas      : print current - voltage power in real time.\r\nPress enter to quit";
 	unsigned char* ask_speed = "Enter value between 0 (stop) and 1023 (full speed) :";
 	unsigned char* ask_steering = "Enter value between -127 (full left) and 128 (full right), 0 is the middle position :";
 	unsigned char* ask_meas = "currents and voltage analog values for propulsion module : "; 
-	unsigned char* error_speed ="error : failed value";
 	unsigned char* succed_speed = "change speed succeded";
 	unsigned char* succed_steering = "change steering succeded";
+	unsigned char* error_speed ="error : failed value";
 	unsigned char* error_command = "Error : command not supported. Enter help to know the supported commands";
 	
 	/* Adresse de l'esclave pour la prochaine communication I2C */	
