@@ -341,8 +341,41 @@ int main(void)
 		else if ( !strcmp(rx_buffer,meas_test) )
 		{
 			affichage(uart0_filestream,ask_meas,strlen(ask_meas));
+
+
+			//----- OPEN THE I2C BUS -----
+			char *filename = (char*)"/dev/i2c-1";
+			if ((file_i2c = open(filename, O_RDWR)) < 0)
+			{
+				//ERROR HANDLING: you can check errno to see what went wrong
+				printf("Failed to open the i2c bus");
+			}
+	
+			addr = 0x30;          //<<<<<The I2C address of the slave
+			if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
+			{
+				printf("Failed to acquire bus access and/or talk to slave.\n");
+				//ERROR HANDLING; you can check errno to see what went wrong
+			}
+
+			
+			//----- READ BYTES -----
+			length = 30;	//<<< Number of bytes to read
+			if (read(file_i2c, buffer_reception, length) != length)		//read() returns the number of bytes actually read, if it doesn't match 			then an error occurred (e.g. no response from the device)
+			{
+				//ERROR HANDLING: i2c transaction failed
+				printf("Failed to read from the i2c bus.\n");
+			}
+			else
+			{
+			printf("Data read: %s\n", buffer_reception);
+			}
+
+			affichage(uart0_filestream,buffer_reception,strlen(buffer_reception));
+
+
+			
 		} 
-		
 		else 
 		{
 			 affichage(uart0_filestream,error_command,strlen(error_command));
