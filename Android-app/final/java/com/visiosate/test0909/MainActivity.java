@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
           public void onFinish() {
 
-            Intent myIntent = new Intent(MainActivity.this, ListActivity.class);
+            Intent myIntent = new Intent(MainActivity.this, ControllerActivity.class);
             startActivity(myIntent);
               //finish();
 
