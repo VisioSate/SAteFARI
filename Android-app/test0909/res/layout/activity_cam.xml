@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFD0"
+    tools:context=".CamPS4Activity">
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/My_btn">
+    </WebView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgClose"
+        android:layout_gravity="end|top"
+        android:background="@drawable/close"
+        android:padding="20dp"/>
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="48dp"
+        android:layout_height="110dp"
+        android:alpha="0.5"
+        app:srcCompat="@drawable/camera" />
+
+
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:layout_gravity="bottom|start"
+        android:alpha="0.5"
+        app:srcCompat="@drawable/mailblack" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="48dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center|start"
+        android:alpha="0.5"
+        app:srcCompat="@drawable/videocam" />
+
+
+</FrameLayout>
+
