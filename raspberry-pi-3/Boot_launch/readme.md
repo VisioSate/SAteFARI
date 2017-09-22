@@ -1,6 +1,11 @@
-1. Placer les fichiers .service dans le dossier /etc/systemd/system/ :
+# Tutoriel d'installation des services
+
+### 1. Placer les fichiers .service dans le dossier /etc/systemd/system/ :
   ex :
+  
+   ```
    sudo cp /chemin/vers/le/fichier/android.service /etc/systemd/system/
+   ```
 
 2. Installer les services et les activer : 
   ex :
