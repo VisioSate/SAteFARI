@@ -1,5 +1,24 @@
+/**
+ *	\file	uart.c
+ *	\brief	programme main 
+ *	\authors	Irian.J Nicolas.D
+ *	\version	2.0
+ *	\date	22 Septembre 2017
+ *
+ *	Programme de communication de l'UART
+ *
+ */
+
+
 #include "uart.h"
 
+
+/**
+ *	\fn	int main (void)
+ *	\brief Communication UART fonctionnelle
+ *	
+ *	\return 1 - Non utilisé 
+ */ 
 int main(void) 
 {
 
@@ -28,7 +47,7 @@ int main(void)
 	
 	unsigned char* ask_speed = "Enter value between 0 (stop) and 1023 (full speed) :";
 	unsigned char* ask_steering = "Enter value between -127 (full left) and 128 (full right), 0 is the middle position :";
-	unsigned char* ask_meas = "currents and voltage analog values for propulsion module : "; 
+	unsigned char* ask_meas = "currents and voltage analog values for propulsion module : \n\r"; 
 	unsigned char* error_speed ="error : failed value";
 	unsigned char* succed_speed = "change speed succeded";
 	unsigned char* succed_steering = "change steering succeded";
@@ -168,6 +187,7 @@ int main(void)
 						printf("Failed to open the i2c bus");
 				}
 				/* Début de la communication avec l'esclave */
+				addr = 0x20;
 				if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
 				{
 					printf("Failed to acquire bus access and/or talk to slave.\n");
@@ -316,6 +336,7 @@ int main(void)
 						printf("Failed to open the i2c bus");
 				}
 				/* Début de la communication avec l'esclave */
+				addr = 0x20;
 				if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
 				{
 					printf("Failed to acquire bus access and/or talk to slave.\n");
@@ -341,8 +362,40 @@ int main(void)
 		else if ( !strcmp(rx_buffer,meas_test) )
 		{
 			affichage(uart0_filestream,ask_meas,strlen(ask_meas));
+
+
+			//----- OPEN THE I2C BUS -----
+			char *filename = (char*)"/dev/i2c-1";
+			if ((file_i2c = open(filename, O_RDWR)) < 0)
+			{
+				//ERROR HANDLING: you can check errno to see what went wrong
+				printf("Failed to open the i2c bus");
+			}
+	
+			addr = 0x30;          //<<<<<The I2C address of the slave
+			if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
+			{
+				printf("Failed to acquire bus access and/or talk to slave.\n");
+				//ERROR HANDLING; you can check errno to see what went wrong
+			}
+
+			
+			//----- READ BYTES -----
+			length = 30;	//<<< Number of bytes to read
+			if (read(file_i2c, buffer_reception, length) != length)		//read() returns the number of bytes actually read, if it doesn't match 			then an error occurred (e.g. no response from the device)
+			{
+				//ERROR HANDLING: i2c transaction failed
+				printf("Failed to read from the i2c bus.\n");
+			}
+			else
+			{
+			printf("Data read: %s\n", buffer_reception);
+			}
+
+			affichage(uart0_filestream,buffer_reception,strlen(buffer_reception));
+
+			
 		} 
-		
 		else 
 		{
 			 affichage(uart0_filestream,error_command,strlen(error_command));
@@ -352,3 +405,4 @@ int main(void)
 close(uart0_filestream); 
 return 1;
 }
+

@@ -1,5 +1,12 @@
 #include "uart.h"
-
+/**
+ *	\file	fonction.c
+ *	\biref	fonction necessaire au fonctionnement de l'UART
+ *	\authors Irian.J Nicolas.D
+ *	\version 1.0
+ *	\date 22 Septembre 2017
+ *
+ */
 	
 void affichage(int filestream,unsigned char* buffer_to_display,int lenght_buffer) 
 {

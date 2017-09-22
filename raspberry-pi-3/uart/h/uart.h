@@ -1,5 +1,13 @@
 #ifndef UART_H
 #define UART_H
+/**
+ *	\file	uart.h
+ *	\biref	fonction nécessaire au fonctionnement de l'UART
+ *	\authors Irian.J Nicolas.D
+ *	\version 1.0
+ *	\date 22 Septembre 2017
+ *
+ */
 
 #include<string.h>
 /* Header nécéssaire à l'UART */
@@ -32,10 +40,34 @@
 
 
 void die(char *s);
+
+/**
+ *	\fn	void affichage (int filestream,unsigned char* buffer_to_display,int lenght_buffer)
+ *	\brief Envoie un string sur le port série
+ *
+ */ 
 void affichage(int filestream,unsigned char* buffer_to_display,int lenght_buffer);
+
+/**
+ *	\fn	void receive(int filestream, unsigned char* rx_buffer); buffer_to_display,int lenght_buffer)
+ *	\brief se met en écoute sur le port série pour recevoir lenght_buffer octets de données
+ *
+ *
+ */ 
 void receive(int filestream, unsigned char* rx_buffer);
-void init_uart(int filestream);
+
+/**
+ *	\fn	void close_uart(int filestream);
+ *	\brief Ferme la communication port série 
+ *
+ */ 
 void close_uart(int filestream);
+
+/**
+ *	\fn	void receive(int filestream, unsigned char* rx_buffer); buffer_to_display,int lenght_buffer)
+ *	\brief se met en écoute sur le port série pour un octet de donnée - Non fonctionnel 
+ *
+ */ 
 void receive_char(int filestream, unsigned char* rx_buffer);
 
 #endif
