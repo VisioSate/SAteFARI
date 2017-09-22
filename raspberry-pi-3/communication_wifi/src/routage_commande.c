@@ -1,13 +1,32 @@
+/**
+ *	\file	routage_commande.c
+ *	\brief	programme main 
+ *	\authors	Irian.J Nicolas.D
+ *	\version	3.0
+ *	\date	22 Septembre 2017
+ *
+ *	Programme de routage de la commande reçu via wifi vers une interface I2C
+ *
+ */
+
+
 #include<routage_commande.h>
 
 int file_i2c;
 int length;
-unsigned char buffer[9];
+unsigned char buffer[10];
 
 struct pollfd fd;
 int res;
 
 
+/**
+ *	\fn	int main (void)
+ *	\brief routage commande fonctionnel
+ *	
+ *	\return 0 - Arrêt en cas de deconnexion wi-fi
+ *
+ */ 	
 int main(void)
 {
 
@@ -22,7 +41,7 @@ int main(void)
 	if ((s=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
 	{
         	die("socket");
-    	}
+    }
      
 	/* Remplissage mémoire des structures par des zéros */
 	memset((char *) &si_me, 0, sizeof(si_me));
@@ -45,6 +64,7 @@ int main(void)
         	printf("Waiting for data...");			
         	fflush(stdout);
 
+			/* CRéation de la détection d'évènement à l'aide la bibliothèque POLL - gestion du timeout */
 			fd.fd = s;        
 			fd.events = POLLIN;
 			res = poll(&fd,1,1000);
@@ -52,25 +72,26 @@ int main(void)
 			{
 				printf("\nTIMEOUT\n");
 
-				buf[0] = '0';
+				/* Ecriture de la commande zero en cas de deconnexion */
+				buf[0] = '+';
 				buf[1] = '0';
 				buf[2] = '0';
 				buf[3] = '0';
-				buf[4] = ' ';
-				buf[5] = '+';
-				buf[6] = '0';
+				buf[4] = '0';
+				buf[5] = ' ';
+				buf[6] = '+';
 				buf[7] = '0';
 				buf[8] = '0';
-				buf[9] = '\0';
+				buf[9] = '0';
+				buf[10] = '\0';
 			
 
-				/* Ouverture du bus I2C */ 
+				/* Ouverture du bus I2C - Sécurité de déconnexion */ 
 				char *filename = (char*)"/dev/i2c-1";
 				if ((file_i2c = open(filename, O_RDWR)) < 0)
-					{
+				{
 					/* Erreur à l'ouverture du bus, vérifier errno pour plus détails */ 
 					printf("Failed to open the i2c bus");
-					return 0;
 				}
 		
 				/* Adresse de l'esclave pour la prochaine communication I2C */
@@ -78,24 +99,28 @@ int main(void)
 		
 				/* Début de la communication avec l'esclave */
 				if (ioctl(file_i2c, I2C_SLAVE, addr) < 0)
-					{
+				{
 					printf("Failed to acquire bus access and/or talk to slave.\n");
 					/* Erreur à la communication avec l'esclave, voir errno pour plus de détails */ 
-					return 0;
 				}
 	
 
 				/* Ecriture sur le bus I2C */ 
 				/* Longueur de la transmission à effectuer - doit correspondre à la tailel du buffer (en octet) */
-				length = 9;		
+				/* Envoi de la commande zéro de sécurité en cas de deconnexion */
+				length = 10;		
 				/* Write retourne le nombre d'octet écris, une erreur apparaît s'il ne correspond pas à la demande envoyée */ 
 				if (write(file_i2c, buf, length) != length)		
-					{
+				{
 					/* Affichage d'une erreur de communication */
 					printf("Failed to write to the i2c bus.\n");
 				}
+
 				printf("Data: %s\n" , buf);
+				/* Retour pour ré-execution du programme */
+				return 0;
 			}
+
 			else if (res == -1)
 			{
 				printf("error\n");
@@ -124,7 +149,7 @@ int main(void)
 		{
 			/* Erreur à l'ouverture du bus, vérifier errno pour plus détails */
 			printf("Failed to open the i2c bus");
-			return 0;
+			
 		}
 		
 		/* Adresse de l'esclave pour la prochaine communication I2C */	
@@ -135,13 +160,13 @@ int main(void)
 		{
 			printf("Failed to acquire bus access and/or talk to slave.\n");
 			/* Erreur à la communication avec l'esclave, voir errno pour plus de détails */
-			return 0;
+			
 		}
 	
 
 		/* Ecriture sur le bus I2C */	
 		/* Longueur de la transmission à effectuer - doit correspondre à la tailel du buffer (en octet) */
-		length = 9;		
+		length = 10;		
 		/* Write retourne le nombre d'octet écris, une erreur apparaît s'il ne correspond pas à la demande envoyée */ 
 		if (write(file_i2c, buf, length) != length)		
 		{
@@ -161,34 +186,4 @@ int main(void)
 	close(s);
 	return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

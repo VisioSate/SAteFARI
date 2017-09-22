@@ -3,6 +3,13 @@
 #ifndef ROUTAGE_H
 #define ROUTAGE_H
 
+/**
+ *	\file	routage_commande.h
+ *	\brief	routage de la commande
+ *	\author Irian.J Nicolas.D
+ *	\version 1.0
+ */
+
 
 /* Header nécessaire à la communication wifi */
 #include<stdio.h> 
@@ -26,12 +33,6 @@
 /* Port d'entrée de la communication wifi */
 #define PORT 12345   
 
-/*struct timeval
-{
-	time_t tv_sec;
-	long int tv_usec;
-};
-*/
 void die(char *s);
 
 #endif
