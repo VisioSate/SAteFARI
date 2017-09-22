@@ -14,7 +14,7 @@
 
 4. Rendre le script exécutable :
   ex :
-   chmod 744 /usr/local/bin/android.sh
+   sudo chmod 744 /usr/local/bin/android.sh
 
 5. Redémarrer la Raspberry et les commandes écrites dans les fichiers .sh s'exécuteront
 
