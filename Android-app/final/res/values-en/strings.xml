@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SAteFARI</string>
+    <string name="controller_choice">Select control system</string>
+    <string name="recipient">Recipient</string>
+    <string name="take_picture">Take a picture</string>
+    <string name="Folder">Picture Folder</string>
+    <string name="label_permissions">Please enable Microphone and Storage permissions.</string>
+</resources>
